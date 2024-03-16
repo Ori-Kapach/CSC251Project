@@ -1,3 +1,6 @@
+/**
+ * Represents an insurance policy.
+ */
 public class Policy {
     private int policyNumber;
     private String providerName;
@@ -8,7 +11,9 @@ public class Policy {
     private double height; // in inches
     private double weight; // in pounds
 
-    // No-arg constructor
+    /**
+     * No-argument constructor.
+     */
     public Policy() {
         this.policyNumber = 0;
         this.providerName = "";
@@ -20,7 +25,17 @@ public class Policy {
         this.weight = 0.0;
     }
 
-    // Constructor with arguments
+    /**
+     * Constructs a Policy object with provided details.
+     * @param policyNumber The policy number.
+     * @param providerName The name of the insurance provider.
+     * @param firstName The first name of the policyholder.
+     * @param lastName The last name of the policyholder.
+     * @param age The age of the policyholder.
+     * @param smokingStatus The smoking status of the policyholder (smoker or non-smoker).
+     * @param height The height of the policyholder (in inches).
+     * @param weight The weight of the policyholder (in pounds).
+     */
     public Policy(int policyNumber, String providerName, String firstName, String lastName, int age, String smokingStatus, double height, double weight) {
         this.policyNumber = policyNumber;
         this.providerName = providerName;
@@ -32,8 +47,8 @@ public class Policy {
         this.weight = weight;
     }
 
-    // Getters and Setters
-    public int getPolicyNumber() {
+    // Getter and setter methods
+     public int getPolicyNumber() {
         return policyNumber;
     }
 
@@ -97,12 +112,18 @@ public class Policy {
         this.weight = weight;
     }
 
-    // Method to calculate BMI
+    /**
+     * Calculates the Body Mass Index (BMI) of the policyholder.
+     * @return The BMI of the policyholder.
+     */
     public double calculateBMI() {
         return (weight * 703) / (height * height);
     }
 
-    // Method to calculate policy price
+    /**
+     * Calculates the price of the insurance policy.
+     * @return The price of the insurance policy.
+     */
     public double calculatePolicyPrice() {
         double baseFee = 600.0;
         double additionalFee = 0.0;
