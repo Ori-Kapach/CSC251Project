@@ -1,58 +1,30 @@
-/**
- * Represents an insurance policy.
- */
 public class Policy {
-    private int policyNumber;
+    // Fields
+    private String policyNumber;
     private String providerName;
-    private String firstName;
-    private String lastName;
-    private int age;
-    private String smokingStatus;
-    private double height; // in inches
-    private double weight; // in pounds
+    private PolicyHolder policyHolder; // Reference to PolicyHolder object
 
-    /**
-     * No-argument constructor.
-     */
+    // Static field to track number of Policy objects created
+    private static int numberOfPolicies = 0;
+
+    // Constructors
     public Policy() {
-        this.policyNumber = 0;
-        this.providerName = "";
-        this.firstName = "";
-        this.lastName = "";
-        this.age = 0;
-        this.smokingStatus = "";
-        this.height = 0.0;
-        this.weight = 0.0;
+        numberOfPolicies++;
     }
 
-    /**
-     * Constructs a Policy object with provided details.
-     * @param policyNumber The policy number.
-     * @param providerName The name of the insurance provider.
-     * @param firstName The first name of the policyholder.
-     * @param lastName The last name of the policyholder.
-     * @param age The age of the policyholder.
-     * @param smokingStatus The smoking status of the policyholder (smoker or non-smoker).
-     * @param height The height of the policyholder (in inches).
-     * @param weight The weight of the policyholder (in pounds).
-     */
-    public Policy(int policyNumber, String providerName, String firstName, String lastName, int age, String smokingStatus, double height, double weight) {
+    public Policy(String policyNumber, String providerName, PolicyHolder policyHolder) {
         this.policyNumber = policyNumber;
         this.providerName = providerName;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.age = age;
-        this.smokingStatus = smokingStatus;
-        this.height = height;
-        this.weight = weight;
+        this.policyHolder = policyHolder;
+        numberOfPolicies++;
     }
 
-    // Getter and setter methods
-     public int getPolicyNumber() {
+    // Getters and setters for the fields
+    public String getPolicyNumber() {
         return policyNumber;
     }
 
-    public void setPolicyNumber(int policyNumber) {
+    public void setPolicyNumber(String policyNumber) {
         this.policyNumber = policyNumber;
     }
 
@@ -64,79 +36,50 @@ public class Policy {
         this.providerName = providerName;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public PolicyHolder getPolicyHolder() {
+        return policyHolder;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setPolicyHolder(PolicyHolder policyHolder) {
+        this.policyHolder = policyHolder;
     }
 
-    public String getLastName() {
-        return lastName;
+    public static int getNumberOfPolicies() {
+        return numberOfPolicies;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    // toString method
+    @Override
+    public String toString() {
+        return 
+                "Policy Number: " + policyNumber + '\n' +
+                "Provider Name: " + providerName + '\n' + policyHolder;
     }
+    
+    
+     
+     public double getPrice() 
+          {
+               final double BASE_PRICE = 600;
+               final double ADDITIONAL_FEE_AGE = 75;
+               final double ADDITIONAL_FEE_SMOKING = 100;
+               final double ADDITIONAL_FEE_PER_BMI = 20;
 
-    public int getAge() {
-        return age;
-    }
+               final int AGE_THRESHOLD = 50;
+               final int BMI_THRESHOLD = 35;
 
-    public void setAge(int age) {
-        this.age = age;
-    }
+               double price = BASE_PRICE;
 
-    public String getSmokingStatus() {
-        return smokingStatus;
-    }
+               if (policyHolder.getAge() > AGE_THRESHOLD)
+               price += ADDITIONAL_FEE_AGE;
 
-    public void setSmokingStatus(String smokingStatus) {
-        this.smokingStatus = smokingStatus;
-    }
+               if (policyHolder.getSmokingStatus().equalsIgnoreCase("smoker"))
+               price += ADDITIONAL_FEE_SMOKING;
 
-    public double getHeight() {
-        return height;
-    }
+               if (policyHolder.getBMI() > BMI_THRESHOLD)
+               price += ((policyHolder.getBMI() - BMI_THRESHOLD) * ADDITIONAL_FEE_PER_BMI);
 
-    public void setHeight(double height) {
-        this.height = height;
-    }
-
-    public double getWeight() {
-        return weight;
-    }
-
-    public void setWeight(double weight) {
-        this.weight = weight;
-    }
-
-    /**
-     * Calculates the Body Mass Index (BMI) of the policyholder.
-     * @return The BMI of the policyholder.
-     */
-    public double calculateBMI() {
-        return (weight * 703) / (height * height);
-    }
-
-    /**
-     * Calculates the price of the insurance policy.
-     * @return The price of the insurance policy.
-     */
-    public double calculatePolicyPrice() {
-        double baseFee = 600.0;
-        double additionalFee = 0.0;
-        if (age > 50) {
-            additionalFee += 75.0;
-        }
-        if (smokingStatus.equalsIgnoreCase("smoker")) {
-            additionalFee += 100.0;
-        }
-        double bmi = calculateBMI();
-        if (bmi > 35) {
-            additionalFee += (bmi - 35) * 20;
-        }
-        return baseFee + additionalFee;
-    }
+               return price;
+          }
 }
+
